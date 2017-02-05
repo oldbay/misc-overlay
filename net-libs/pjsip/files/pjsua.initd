@@ -1,0 +1,47 @@
+#!/sbin/runscript
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+extra_started_commands="reload"
+
+description="The pjsua daemon init script"
+description_reload="Reloads the pjsua daemon"
+
+. /etc/conf.d/pjsua
+
+depend() {
+	need net alsasound
+}
+
+start() {
+	ebegin "Starting pjsua"
+	#start daemon
+	start-stop-daemon --start --background \
+	--pidfile ${PJSUA_PIDFILE} --make-pidfile \
+	--exec ${PJSUA_BIN} -- ${PJSUA_OPTS}
+
+	#pjterm start comands
+	einfo "Start default terminal commands:"
+	sleep 2
+	cat ${PJSUA_COMS}| while read line
+        do
+            einfo "    comand> $line"
+            /usr/bin/pjterm "$line" 2>/dev/null
+            echo ""
+        done
+        einfo "End default terminal commands"
+        eend $?
+}
+
+stop() {
+	ebegin "Stopping pjsua"
+	start-stop-daemon --stop --pidfile ${PJSUA_PIDFILE}
+	eend $?
+}
+
+reload() {
+	ebegin "Reloading pjsua"
+	stop
+	start
+	eend $?
+}

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. /etc/conf.d/pjsua
+
+port=`cat ${PJSUA_CONF} |grep cli-telnet-port|awk -F "=" '{print $2}'`
+ip="127.0.0.1 $port"
+cmd="$@\r"
+
+(
+    sleep 1
+    echo -e ${cmd}
+    sleep 1
+) | telnet $ip
+

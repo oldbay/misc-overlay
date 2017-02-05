@@ -1,0 +1,5 @@
+PJSUA_BIN="/usr/bin/pjsua"
+PJSUA_COMS="/etc/pjsua/pjsua.com"
+PJSUA_CONF="/etc/pjsua/pjsua.cfg"
+PJSUA_OPTS="--config-file=${PJSUA_CONF}"
+PJSUA_PIDFILE="/var/run/pjsua.pid"

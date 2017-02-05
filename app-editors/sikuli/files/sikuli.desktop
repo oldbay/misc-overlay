@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Sikuli IDE
+Comment=An integrated development environment for writing visual scripts with screenshots easily
+Exec=/opt/sikuli/sikuli-ide.sh
+Icon=applications-development
+Terminal=false
+Type=Application
+Categories=Development
